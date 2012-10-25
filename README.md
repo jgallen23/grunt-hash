@@ -1,6 +1,6 @@
 # grunt-hash
 
-Append a unique hash to tne end of a file for cache busting.
+Append a unique hash to the end of a filename for cache busting.
 
 ## Getting Started
 Install this grunt plugin next to your project's [grunt.js gruntfile][getting_started] with: `npm install grunt-hash`
