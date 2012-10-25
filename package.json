@@ -1,0 +1,37 @@
+{
+  "name": "grunt-hash",
+  "description": "Append a unique hash to tne end of a file for cache busting.",
+  "version": "0.1.0",
+  "homepage": "https://github.com/jgallen23/grunt-hash",
+  "author": {
+    "name": "Greg Allen",
+    "email": "me@jga.me"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jgallen23/grunt-hash.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jgallen23/grunt-hash/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/jgallen23/grunt-hash/blob/master/LICENSE-MIT"
+    }
+  ],
+  "main": "grunt.js",
+  "bin": "bin/grunt-hash",
+  "engines": {
+    "node": "*"
+  },
+  "scripts": {
+    "test": "grunt test"
+  },
+  "devDependencies": {
+    "grunt": "~0.3.17"
+  },
+  "keywords": [
+    "gruntplugin"
+  ]
+}
