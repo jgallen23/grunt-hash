@@ -26,7 +26,7 @@ module.exports = function(grunt) {
     options.dest = options.dest || '';
     var map = {};
 
-    grunt.file.expandFiles(options.src).forEach(function(file) {
+    grunt.file.expand(options.src).forEach(function(file) {
 
       var source = fs.readFileSync(file, 'utf8'); 
       var hash = getHash(source);

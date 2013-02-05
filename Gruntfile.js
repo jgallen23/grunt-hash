@@ -1,12 +1,13 @@
 module.exports = function(grunt) {
 
+  // Load local tasks.
+  grunt.loadTasks('tasks');
+  grunt.loadNpmTasks('grunt-contrib-jshint');
+
   // Project configuration.
   grunt.initConfig({
     test: {
       files: ['test/**/*.js']
-    },
-    lint: {
-      files: ['grunt.js', 'tasks/**/*.js', 'test/**/*.js']
     },
     hash: {
       src: 'examples/*.js',
@@ -18,6 +19,7 @@ module.exports = function(grunt) {
       tasks: 'default'
     },
     jshint: {
+      files: ['grunt.js', 'tasks/**/*.js', 'test/**/*.js'],
       options: {
         curly: true,
         eqeqeq: true,
@@ -37,10 +39,7 @@ module.exports = function(grunt) {
     }
   });
 
-  // Load local tasks.
-  grunt.loadTasks('tasks');
-
   // Default task.
-  grunt.registerTask('default', 'lint hash');
+  grunt.registerTask('default', ['jshint', 'hash']);
 
 };
