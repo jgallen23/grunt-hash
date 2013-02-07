@@ -1,4 +1,13 @@
 
+0.2.0 / 2013-02-07 
+==================
+
+  * [docs] updated readme
+  * [grunt] updated jshint config
+  * [package] updated jshint dep
+  * Merge branch 'feature/grunt0.4'
+  * Updates grunt-hash for Grunt 0.4
+
 0.1.1 / 2012-10-25 
 ==================
 
