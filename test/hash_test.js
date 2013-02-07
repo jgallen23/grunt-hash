@@ -20,7 +20,7 @@ var grunt = require('grunt');
     test.ifError(value)
 */
 
-exports['hash'] = {
+exports.hash = {
   setUp: function(done) {
     // setup here
     done();

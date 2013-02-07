@@ -6,9 +6,6 @@ module.exports = function(grunt) {
 
   // Project configuration.
   grunt.initConfig({
-    test: {
-      files: ['test/**/*.js']
-    },
     hash: {
       src: 'examples/*.js',
       mapping: 'examples/assets.json',
@@ -19,23 +16,7 @@ module.exports = function(grunt) {
       tasks: 'default'
     },
     jshint: {
-      files: ['grunt.js', 'tasks/**/*.js', 'test/**/*.js'],
-      options: {
-        curly: true,
-        eqeqeq: true,
-        immed: true,
-        latedef: true,
-        newcap: true,
-        noarg: true,
-        sub: true,
-        undef: true,
-        boss: true,
-        eqnull: true,
-        node: true,
-        es5: true,
-        strict: false
-      },
-      globals: {}
+      all: ['Gruntfile.js', 'tasks/**/*.js', 'test/**/*.js']
     }
   });
 
