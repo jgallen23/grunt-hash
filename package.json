@@ -30,7 +30,7 @@
   },
   "devDependencies": {
     "grunt": "0.4.x",
-    "grunt-contrib-jshint": "0.1.x"
+    "grunt-contrib-jshint": "~0.1.1rc6"
   },
   "keywords": [
     "gruntplugin"
