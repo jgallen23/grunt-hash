@@ -26,6 +26,10 @@ module.exports = function(grunt) {
     options.dest = options.dest || '';
     var map = {};
 
+    if (!fs.existsSync(options.dest)) {
+      fs.mkdirSync(options.dest);
+    }
+
     grunt.file.expand(options.src).forEach(function(file) {
 
       var source = fs.readFileSync(file, 'utf8'); 
