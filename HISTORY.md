@@ -1,4 +1,10 @@
 
+0.2.2 / 2013-02-26 
+==================
+
+  * [example] updated to show how to do php file output
+  * [task] added .php output support for mapping file
+
 0.2.1 / 2013-02-09 
 ==================
 
