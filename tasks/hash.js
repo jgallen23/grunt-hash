@@ -49,7 +49,12 @@ module.exports = function(grunt) {
       map[basename+ext] = newFile;
     });
     if (options.mapping) {
-      fs.writeFileSync(options.mapping, JSON.stringify(map));
+      var mappingExt = path.extname(options.mapping);
+      var out = JSON.stringify(map);
+      if (mappingExt == '.php') {
+        out = "<?php return json_decode('"+out+"'); ?>";
+      }
+      fs.writeFileSync(options.mapping, out);
       grunt.log.writeln('Generated mapping: '+options.mapping);
     }
 
