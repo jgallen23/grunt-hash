@@ -1,0 +1,1 @@
+<?php return json_decode('{"test1.js":"test1.b93fd451.js","test2.js":"test2.2870d71a.js"}'); ?>

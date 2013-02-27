@@ -8,7 +8,8 @@ module.exports = function(grunt) {
   grunt.initConfig({
     hash: {
       src: 'examples/*.js',
-      mapping: 'examples/assets.json',
+      //mapping: 'examples/assets.json',
+      mapping: 'examples/assets.php',
       dest: 'examples/dist/'
     },
     watch: {
