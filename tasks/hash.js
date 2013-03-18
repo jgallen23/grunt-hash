@@ -32,8 +32,8 @@ module.exports = function(grunt) {
 
     grunt.file.expand(options.src).forEach(function(file) {
 
-      var source = fs.readFileSync(file, 'utf8'); 
-      var hash = getHash(source);
+      var source = fs.readFileSync(file, 'utf8');
+      var hash = getHash(source, 'utf8');
       var ext = path.extname(file);
       var basename = path.basename(file, ext);
 
