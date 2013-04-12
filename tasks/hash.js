@@ -6,6 +6,8 @@
  * Licensed under the MIT license.
  */
 
+"use strict";
+
 module.exports = function(grunt) {
 
   // Please see the grunt documentation for more information regarding task and
@@ -50,9 +52,14 @@ module.exports = function(grunt) {
     });
     if (options.mapping) {
       var mappingExt = path.extname(options.mapping);
+      var mappingPath = path.dirname(options.mapping);
       var out = JSON.stringify(map);
       if (mappingExt == '.php') {
         out = "<?php return json_decode('"+out+"'); ?>";
+      }
+      if (!fs.existsSync(mappingPath)) {
+        fs.mkdirSync(mappingPath);
+        grunt.log.writeln('Generated: '+mappingPath);
       }
       fs.writeFileSync(options.mapping, out);
       grunt.log.writeln('Generated mapping: '+options.mapping);
