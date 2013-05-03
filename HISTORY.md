@@ -1,4 +1,13 @@
 
+0.2.3 / 2013-05-03 
+==================
+
+  * removed use strict
+  * Merge pull request #4 from eltimn/master
+  * Create mapping file directory if it doesn't exist
+  * Merge pull request #3 from michaellopez/encoding
+  * Proper use of encoding for hashing international characters.
+
 0.2.2 / 2013-02-26 
 ==================
 
