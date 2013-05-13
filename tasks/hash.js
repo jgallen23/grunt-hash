@@ -23,6 +23,8 @@ module.exports = function(grunt) {
     var getHash = require('../lib/hash');
     var options = grunt.config('hash');
     var basePath = options.basePath;
+    var flatten = (options.flatten === false ? false : true);
+    console.log("options.flatten " + options.flatten);
     options.dest = options.dest || '';
     var map = {};
 
@@ -41,21 +43,27 @@ module.exports = function(grunt) {
       var basename = path.basename(file, ext);
       //  name with hash
       var newFile = basename+'.'+hash+ext;
-      var newDir = path.relative(basePath, path.dirname(file));
-      
-      var n=newDir.split("/"); 
-      var rp = options.dest;
 
-      for (var i = 0; i < n.length; i++) {
-        rp = rp + n[i];
-        if (!fs.existsSync(rp)) {
-          fs.mkdirSync(rp);
-        } 
-        rp = rp + '/';
+      var newPath;
+      if (flatten === false) {
+        var newDir = path.relative(basePath, path.dirname(file));
+        var n=newDir.split("/"); 
+        var rp = options.dest;
+
+        for (var i = 0; i < n.length; i++) {
+          rp = rp + n[i];
+          if (!fs.existsSync(rp)) {
+            fs.mkdirSync(rp);
+          } 
+          rp = rp + '/';
+        }
+        if (!fs.existsSync(options.dest + newDir))  { fs.mkdirSync(options.dest + newDir); }
+
+        newPath = options.dest + newDir + '/' + newFile;    
       }
-      if (!fs.existsSync(options.dest + newDir))  { fs.mkdirSync(options.dest + newDir); }
-
-      var newPath = options.dest + newDir + '/' + newFile;    
+      else {
+        newPath = options.dest + newFile; 
+      }
       //
       if (!fs.existsSync(newPath)) {
         fs.writeFileSync(newPath, source);
@@ -63,7 +71,13 @@ module.exports = function(grunt) {
       } else {
         grunt.log.writeln('Skipping: '+newPath);
       }
-      map[options.dest + newDir + '/' + basename+ext] = options.dest + newDir + '/' + newFile;
+      if (flatten === false) {
+        map[options.dest + newDir + '/' + basename+ext] = options.dest + newDir + '/' + newFile;
+      }
+      else {
+        map[options.dest + '/' + basename+ext] = options.dest + '/' + newFile;
+      }
+      
     });
 
     if (options.mapping) {
