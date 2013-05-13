@@ -22,7 +22,7 @@ module.exports = function(grunt) {
     fs.existsSync = fs.existsSync || path.existsSync;
     var getHash = require('../lib/hash');
     var options = grunt.config('hash');
-    var basePath = options.basePath;
+    var basePath = options.basePath || "";
     var flatten = (options.flatten === false ? false : true);
     console.log("options.flatten " + options.flatten);
     options.dest = options.dest || '';
