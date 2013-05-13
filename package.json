@@ -1,23 +1,23 @@
 {
-  "name": "grunt-folder-hash",
+  "name": "grunt-hash",
   "description": "Append a unique hash to the end of a filename for cache busting.",
   "version": "0.2.3",
-  "homepage": "https://github.com/klindenboom/grunt-hash",
+  "homepage": "https://github.com/jgallen23/grunt-hash",
   "author": {
     "name": "Greg Allen",
     "email": "me@jga.me"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/klindenboom/grunt-hash.git"
+    "url": "git://github.com/jgallen23/grunt-hash.git"
   },
   "bugs": {
-    "url": "https://github.com/klindenboom/grunt-hash/issues"
+    "url": "https://github.com/jgallen23/grunt-hash/issues"
   },
   "licenses": [
     {
       "type": "MIT",
-      "url": "https://github.com/klindenboom/grunt-hash/blob/master/LICENSE-MIT"
+      "url": "https://github.com/jgallen23/grunt-hash/blob/master/LICENSE-MIT"
     }
   ],
   "main": "grunt.js",
