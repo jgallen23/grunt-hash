@@ -28,7 +28,7 @@ module.exports = function(grunt) {
     console.log("options.flatten " + options.flatten);
     options.dest = options.dest || '';
     //prepare css files
-    prepCSS(grunt, options.cssPath, options.imgPath, basePath);
+    if (options.preprocessCSS) prepCSS(grunt, basePath + options.cssPath, basePath + options.imgPath, basePath);
 
     var map = {};
 
@@ -36,7 +36,7 @@ module.exports = function(grunt) {
       fs.mkdirSync(options.dest);
     }
 
-    grunt.file.expand(options.src).forEach(function(file) {
+    grunt.file.expand(basePath + options.src).forEach(function(file) {
       //read file
       var source = fs.readFileSync(file, 'utf8');
       //get hash of file 
