@@ -19,13 +19,17 @@ module.exports = function(grunt) {
     grunt.config.requires(['hash', 'src']);
     var fs = require('fs');
     var path = require('path');
+    var prepCSS = require('../lib/prepareCSS');
     fs.existsSync = fs.existsSync || path.existsSync;
     var getHash = require('../lib/hash');
     var options = grunt.config('hash');
-    var basePath = options.basePath || "";
+    var basePath = options.basePath;
     var flatten = (options.flatten === false ? false : true);
     console.log("options.flatten " + options.flatten);
     options.dest = options.dest || '';
+    //prepare css files
+    prepCSS(grunt, options.cssPath, options.imgPath, basePath);
+
     var map = {};
 
     if (!fs.existsSync(options.dest)) {
@@ -67,9 +71,9 @@ module.exports = function(grunt) {
       //
       if (!fs.existsSync(newPath)) {
         fs.writeFileSync(newPath, source);
-        grunt.log.writeln('Generated: '+newPath);
+        //grunt.log.writeln('Generated: '+newPath);
       } else {
-        grunt.log.writeln('Skipping: '+newPath);
+        //grunt.log.writeln('Skipping: '+newPath);
       }
       if (flatten === false) {
         map[options.dest + newDir + '/' + basename+ext] = options.dest + newDir + '/' + newFile;
