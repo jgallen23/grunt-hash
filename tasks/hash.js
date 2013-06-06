@@ -76,7 +76,7 @@ module.exports = function(grunt) {
         //grunt.log.writeln('Skipping: '+newPath);
       }
       if (flatten === false) {
-        map[options.dest + newDir + '/' + basename+ext] = options.dest + newDir + '/' + newFile;
+        map['/' + newDir + '/' + basename+ext] = '/' + newDir + '/' + newFile;
       }
       else {
         map[options.dest + '/' + basename+ext] = options.dest + '/' + newFile;
