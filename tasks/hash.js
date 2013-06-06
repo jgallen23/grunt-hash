@@ -19,35 +19,71 @@ module.exports = function(grunt) {
     grunt.config.requires(['hash', 'src']);
     var fs = require('fs');
     var path = require('path');
+    var prepCSS = require('../lib/prepareCSS');
     fs.existsSync = fs.existsSync || path.existsSync;
     var getHash = require('../lib/hash');
-
     var options = grunt.config('hash');
+    var basePath = options.basePath;
+    var flatten = (options.flatten === false ? false : true);
+    console.log("options.flatten " + options.flatten);
     options.dest = options.dest || '';
+    //prepare css files
+    if (options.preprocessCSS) prepCSS(grunt, basePath + options.cssPath, basePath + options.imgPath, basePath);
+
     var map = {};
 
     if (!fs.existsSync(options.dest)) {
       fs.mkdirSync(options.dest);
     }
 
-    grunt.file.expand(options.src).forEach(function(file) {
-
+    grunt.file.expand(basePath + options.src).forEach(function(file) {
+      //read file
       var source = fs.readFileSync(file, 'utf8');
+      //get hash of file 
       var hash = getHash(source, 'utf8');
+      //extension of file
       var ext = path.extname(file);
+      //name minus extension
       var basename = path.basename(file, ext);
-
+      //  name with hash
       var newFile = basename+'.'+hash+ext;
-      var newPath = path.join(options.dest, newFile);
 
+      var newPath;
+      if (flatten === false) {
+        var newDir = path.relative(basePath, path.dirname(file));
+        var n=newDir.split("/"); 
+        var rp = options.dest;
+
+        for (var i = 0; i < n.length; i++) {
+          rp = rp + n[i];
+          if (!fs.existsSync(rp)) {
+            fs.mkdirSync(rp);
+          } 
+          rp = rp + '/';
+        }
+        if (!fs.existsSync(options.dest + newDir))  { fs.mkdirSync(options.dest + newDir); }
+
+        newPath = options.dest + newDir + '/' + newFile;    
+      }
+      else {
+        newPath = options.dest + newFile; 
+      }
+      //
       if (!fs.existsSync(newPath)) {
         fs.writeFileSync(newPath, source);
-        grunt.log.writeln('Generated: '+newPath);
+        //grunt.log.writeln('Generated: '+newPath);
       } else {
-        grunt.log.writeln('Skipping: '+newPath);
+        //grunt.log.writeln('Skipping: '+newPath);
       }
-      map[basename+ext] = newFile;
+      if (flatten === false) {
+        map['/' + newDir + '/' + basename+ext] = '/' + newDir + '/' + newFile;
+      }
+      else {
+        map[options.dest + '/' + basename+ext] = options.dest + '/' + newFile;
+      }
+      
     });
+
     if (options.mapping) {
       var mappingExt = path.extname(options.mapping);
       var mappingPath = path.dirname(options.mapping);
@@ -64,7 +100,4 @@ module.exports = function(grunt) {
     }
 
   });
-
-
-
 };

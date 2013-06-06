@@ -28,6 +28,8 @@ grunt.loadNpmTasks('grunt-hash');
 grunt.initConfig({
 	hash: {
 		src: 'examples/*.js',  //all your js that needs a hash appended to it
+		basePath: 'static/', //base path of your src
+        flatten: false, // wether or not to flatten the output - default is true
 		mapping: 'examples/assets.json', //mapping file so your server can serve the right files
 		dest: 'examples/dist/' //where the new files will be created
 	}
