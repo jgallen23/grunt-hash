@@ -7,10 +7,37 @@ module.exports = function(grunt) {
   // Project configuration.
   grunt.initConfig({
     hash: {
-      src: 'examples/*.js',
-      //mapping: 'examples/assets.json',
-      mapping: 'examples/assets.php',
-      dest: 'examples/dist/'
+      php: {
+        options: {
+          mapping: 'examples/assets.php'
+        },
+        src: 'examples/*.js',
+        dest: 'examples/dist/php/'
+      },
+      json: {
+        options: {
+          mapping: 'examples/assets.json'
+        },
+        src: 'examples/*.js',
+        dest: 'examples/dist/json/'
+      },
+      single: {
+        options: {
+          mapping: 'examples/single.json'
+        },
+        src: 'examples/test1.js',
+        dest: 'examples/dist/single/'
+      },
+      no_dest: {
+        options: {
+          mapping: 'examples/no_dest.json'
+        },
+        src: 'examples/test1.js'
+      },
+      no_map: {
+        src: 'examples/*.js',
+        dest: 'examples/dist/no_map/'
+      }
     },
     watch: {
       files: '<config:lint.files>',

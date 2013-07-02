@@ -7,6 +7,8 @@
  */
 
 module.exports = function(grunt) {
+  var path = require('path');
+  var getHash = require('../lib/hash');
 
   // Please see the grunt documentation for more information regarding task and
   // helper creation: https://github.com/gruntjs/grunt/blob/master/docs/toc.md
@@ -15,52 +17,47 @@ module.exports = function(grunt) {
   // TASKS
   // ==========================================================================
 
-  grunt.registerTask('hash', 'Append a unique hash to tne end of a file for cache busting.', function() {
-    grunt.config.requires(['hash', 'src']);
-    var fs = require('fs');
-    var path = require('path');
-    fs.existsSync = fs.existsSync || path.existsSync;
-    var getHash = require('../lib/hash');
-
-    var options = grunt.config('hash');
-    options.dest = options.dest || '';
+  grunt.registerMultiTask('hash', 'Append a unique hash to tne end of a file for cache busting.', function() {
+    var options = this.options();
     var map = {};
+    var mappingExt = path.extname(options.mapping);
 
-    if (!fs.existsSync(options.dest)) {
-      fs.mkdirSync(options.dest);
+    // If mapping file is a .json, read it and just override current modifications
+    if (mappingExt === '.json' && grunt.file.exists(options.mapping)) {
+      map = grunt.file.readJSON(options.mapping);
     }
 
-    grunt.file.expand(options.src).forEach(function(file) {
+    this.files.forEach(function(file) {
+      file.src.forEach(function(src) {
+        var source = grunt.file.read(src);
+        var hash = getHash(source, 'utf8');
+        var ext = path.extname(src);
+        var basename = path.basename(src, ext);
 
-      var source = fs.readFileSync(file, 'utf8');
-      var hash = getHash(source, 'utf8');
-      var ext = path.extname(file);
-      var basename = path.basename(file, ext);
+        // Default destination to the same directory
+        var dest = file.dest || path.dirname(src);
 
-      var newFile = basename+'.'+hash+ext;
-      var newPath = path.join(options.dest, newFile);
+        var newFile = basename + '.' + hash + ext;
+        var newPath = path.join(dest, newFile);
 
-      if (!fs.existsSync(newPath)) {
-        fs.writeFileSync(newPath, source);
-        grunt.log.writeln('Generated: '+newPath);
-      } else {
-        grunt.log.writeln('Skipping: '+newPath);
-      }
-      map[basename+ext] = newFile;
+        grunt.file.write(newPath, source);
+        grunt.log.writeln('Generated: ' + newPath);
+
+        map[basename + ext] = newFile;
+      });
     });
+
     if (options.mapping) {
-      var mappingExt = path.extname(options.mapping);
-      var mappingPath = path.dirname(options.mapping);
-      var out = JSON.stringify(map);
-      if (mappingExt == '.php') {
-        out = "<?php return json_decode('"+out+"'); ?>";
+      var output = '';
+
+      if (mappingExt === '.php') {
+        output = "<?php return json_decode('" + JSON.stringify(map) + "'); ?>";
+      } else {
+        output = JSON.stringify(map, null, "  ");
       }
-      if (!fs.existsSync(mappingPath)) {
-        fs.mkdirSync(mappingPath);
-        grunt.log.writeln('Generated: '+mappingPath);
-      }
-      fs.writeFileSync(options.mapping, out);
-      grunt.log.writeln('Generated mapping: '+options.mapping);
+
+      grunt.file.write(options.mapping, output);
+      grunt.log.writeln('Generated mapping: ' + options.mapping);
     }
 
   });

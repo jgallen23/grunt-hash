@@ -27,13 +27,17 @@ grunt.loadNpmTasks('grunt-hash');
 ```javascript
 grunt.initConfig({
 	hash: {
+		options {
+			mapping: 'examples/assets.json', //mapping file so your server can serve the right files
+		},
 		src: 'examples/*.js',  //all your js that needs a hash appended to it
-		mapping: 'examples/assets.json', //mapping file so your server can serve the right files
 		dest: 'examples/dist/' //where the new files will be created
 	}
 });
 grunt.loadNpmTasks('grunt-hash');
 ```
+
+Configuration follow the multi-task standard configuration format: http://gruntjs.com/configuring-tasks
 
 
 ## Contributing
