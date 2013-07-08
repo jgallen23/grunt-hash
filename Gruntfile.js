@@ -9,34 +9,34 @@ module.exports = function(grunt) {
     hash: {
       php: {
         options: {
-          mapping: 'examples/assets.php'
+          mapping: 'out/assets.php'
         },
         src: 'examples/*.js',
-        dest: 'examples/dist/php/'
+        dest: 'out/dist/php/'
       },
       json: {
         options: {
-          mapping: 'examples/assets.json'
+          mapping: 'out/assets.json'
         },
         src: 'examples/*.js',
-        dest: 'examples/dist/json/'
+        dest: 'out/dist/json/'
       },
       single: {
         options: {
-          mapping: 'examples/single.json'
+          mapping: 'out/single.json'
         },
         src: 'examples/test1.js',
-        dest: 'examples/dist/single/'
+        dest: 'out/dist/single/'
       },
       no_dest: {
         options: {
-          mapping: 'examples/no_dest.json'
+          mapping: 'out/no_dest.json'
         },
         src: 'examples/test1.js'
       },
       no_map: {
         src: 'examples/*.js',
-        dest: 'examples/dist/no_map/'
+        dest: 'out/dist/no_map/'
       }
     },
     watch: {
