@@ -1,4 +1,11 @@
 
+0.3.0 / 2013-07-08 
+==================
+
+  * changed gruntfile to output to an out directory
+  * Merge pull request #7 from SBoudrias/master
+  * Refactor task as a standard multi-task (Also refactor the code to use built-in Grunt helpers)
+
 0.2.3 / 2013-05-03 
 ==================
 
