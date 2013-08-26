@@ -30,8 +30,14 @@ grunt.initConfig({
 		options {
 			mapping: 'examples/assets.json', //mapping file so your server can serve the right files
 		},
-		src: 'examples/*.js',  //all your js that needs a hash appended to it
-		dest: 'examples/dist/' //where the new files will be created
+        js: {
+            src: 'examples/*.js',  //all your js that needs a hash appended to it
+            dest: 'examples/dist/js/' //where the new files will be created
+        },
+        css: {
+            src: 'examples/*.css',  //all your css that needs a hash appended to it
+            dest: 'examples/dist/css/' //where the new files will be created
+        }
 	}
 });
 grunt.loadNpmTasks('grunt-hash');
