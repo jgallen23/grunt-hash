@@ -6,6 +6,10 @@
  * Licensed under the MIT license.
  */
 
+function unixify(path) {
+  return path.split('\\').join('/');
+}
+
 module.exports = function(grunt) {
   var path = require('path');
   var getHash = require('../lib/hash');
@@ -18,7 +22,11 @@ module.exports = function(grunt) {
   // ==========================================================================
 
   grunt.registerMultiTask('hash', 'Append a unique hash to tne end of a file for cache busting.', function() {
-    var options = this.options();
+    var options = this.options({
+      srcBasePath: "",
+      destBasePath: "",
+      flatten: false
+    });
     var map = {};
     var mappingExt = path.extname(options.mapping);
 
@@ -31,6 +39,8 @@ module.exports = function(grunt) {
       file.src.forEach(function(src) {
         var source = grunt.file.read(src);
         var hash = getHash(source, 'utf8');
+        var dirname = path.dirname(src);
+        var rootDir = path.relative(options.srcBasePath, dirname);
         var ext = path.extname(src);
         var basename = path.basename(src, ext);
 
@@ -38,12 +48,20 @@ module.exports = function(grunt) {
         var dest = file.dest || path.dirname(src);
 
         var newFile = basename + '.' + hash + ext;
-        var newPath = path.join(dest, newFile);
+        var outputPath = path.join(dest, newFile);
 
-        grunt.file.write(newPath, source);
-        grunt.log.writeln('Generated: ' + newPath);
+        // Determine if the key should be flatten or not. Also normalize the output path
+        var key = path.join(rootDir, path.basename(src));
+        var outKey = path.relative(options.destBasePath, outputPath);
+        if (options.flatten) {
+          key = path.basename(src);
+          outKey = path.basename(outKey);
+        }
 
-        map[basename + ext] = newFile;
+        grunt.file.write(outputPath, source);
+        grunt.log.writeln('Generated: ' + outputPath);
+
+        map[unixify(key)] = unixify(outKey);
       });
     });
 

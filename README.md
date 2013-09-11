@@ -29,6 +29,9 @@ grunt.initConfig({
 	hash: {
 		options {
 			mapping: 'examples/assets.json', //mapping file so your server can serve the right files
+			srcBasePath: 'examples/', // the base Path you want to remove from the `key` string in the mapping file
+			destBasePath: 'out/', // the base Path you want to remove from the `value` string in the mapping file
+			flatten: false // Set to true if you don't want to keep folder structure in the `key` value in the mapping file
 		},
 		src: 'examples/*.js',  //all your js that needs a hash appended to it
 		dest: 'examples/dist/' //where the new files will be created
