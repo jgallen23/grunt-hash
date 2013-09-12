@@ -33,8 +33,14 @@ grunt.initConfig({
 			destBasePath: 'out/', // the base Path you want to remove from the `value` string in the mapping file
 			flatten: false // Set to true if you don't want to keep folder structure in the `key` value in the mapping file
 		},
-		src: 'examples/*.js',  //all your js that needs a hash appended to it
-		dest: 'examples/dist/' //where the new files will be created
+        js: {
+            src: 'examples/*.js',  //all your js that needs a hash appended to it
+            dest: 'examples/dist/js/' //where the new files will be created
+        },
+        css: {
+            src: 'examples/*.css',  //all your css that needs a hash appended to it
+            dest: 'examples/dist/css/' //where the new files will be created
+        }
 	}
 });
 grunt.loadNpmTasks('grunt-hash');
