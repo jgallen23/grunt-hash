@@ -1,4 +1,10 @@
 
+0.4.0 / 2013-09-11 
+==================
+
+  * added tests
+  * Add file full path in the output mapping file, and add options to control it [SBoudrias]
+
 0.3.0 / 2013-07-08 
 ==================
 
