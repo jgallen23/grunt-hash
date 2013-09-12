@@ -1,10 +1,5 @@
 module.exports = function(grunt) {
 
-  // Load local tasks.
-  grunt.loadTasks('tasks');
-  grunt.loadNpmTasks('grunt-contrib-jshint');
-  grunt.loadNpmTasks('grunt-contrib-clean');
-
   // Project configuration.
   grunt.initConfig({
     hash: {
@@ -58,16 +53,30 @@ module.exports = function(grunt) {
       }
     },
     watch: {
-      files: '<config:lint.files>',
+      files: '<%= jshint.all %>',
       tasks: 'default'
     },
     jshint: {
       all: ['Gruntfile.js', 'tasks/**/*.js', 'test/**/*.js']
     },
-    clean: ['out/', 'examples/test1.*.js']
+    clean: [
+      'out/', 
+      'examples/test1.*.js'
+    ],
+    simplemocha: {
+      options: {
+        ui: 'tdd',
+        reporter: 'Spec'
+      },
+      all: { src: 'test/**/*.js' }
+    }
   });
+  require('load-grunt-tasks')(grunt);
+  grunt.loadTasks('tasks');
 
   // Default task.
-  grunt.registerTask('default', ['clean', 'jshint', 'hash']);
+  grunt.registerTask('default', ['clean', 'jshint', 'hash', 'simplemocha']);
+  grunt.registerTask('dev', ['watch']);
+
 
 };
