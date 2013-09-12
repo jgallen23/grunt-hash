@@ -3,6 +3,7 @@ module.exports = function(grunt) {
   // Load local tasks.
   grunt.loadTasks('tasks');
   grunt.loadNpmTasks('grunt-contrib-jshint');
+  grunt.loadNpmTasks('grunt-contrib-clean');
 
   // Project configuration.
   grunt.initConfig({
@@ -28,15 +29,32 @@ module.exports = function(grunt) {
         src: 'examples/test1.js',
         dest: 'out/dist/single/'
       },
+      no_map: {
+        src: 'examples/*.js',
+        dest: 'out/dist/no_map/'
+      },
+      path: {
+        options: {
+          mapping: 'out/path.json',
+          destBasePath: 'out/',
+          srcBasePath: 'examples/'
+        },
+        src: 'examples/**/*.js',
+        dest: 'out/dist/path/'
+      },
+      flatten: {
+        options: {
+          mapping: 'out/flatten.json',
+          flatten: true
+        },
+        src: 'examples/**/*.js',
+        dest: 'out/dist/flatten/'
+      },
       no_dest: {
         options: {
           mapping: 'out/no_dest.json'
         },
         src: 'examples/test1.js'
-      },
-      no_map: {
-        src: 'examples/*.js',
-        dest: 'out/dist/no_map/'
       }
     },
     watch: {
@@ -45,10 +63,11 @@ module.exports = function(grunt) {
     },
     jshint: {
       all: ['Gruntfile.js', 'tasks/**/*.js', 'test/**/*.js']
-    }
+    },
+    clean: ['out/', 'examples/test1.*.js']
   });
 
   // Default task.
-  grunt.registerTask('default', ['jshint', 'hash']);
+  grunt.registerTask('default', ['clean', 'jshint', 'hash']);
 
 };
