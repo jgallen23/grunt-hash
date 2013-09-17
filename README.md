@@ -27,7 +27,7 @@ grunt.loadNpmTasks('grunt-hash');
 ```javascript
 grunt.initConfig({
 	hash: {
-		options {
+		options: {
 			mapping: 'examples/assets.json', //mapping file so your server can serve the right files
 			srcBasePath: 'examples/', // the base Path you want to remove from the `key` string in the mapping file
 			destBasePath: 'out/', // the base Path you want to remove from the `value` string in the mapping file
