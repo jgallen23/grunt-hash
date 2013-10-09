@@ -25,7 +25,8 @@ module.exports = function(grunt) {
     var options = this.options({
       srcBasePath: "",
       destBasePath: "",
-      flatten: false
+      flatten: false,
+      hashLength: 8
     });
     var map = {};
     var mappingExt = path.extname(options.mapping);
@@ -38,7 +39,7 @@ module.exports = function(grunt) {
     this.files.forEach(function(file) {
       file.src.forEach(function(src) {
         var source = grunt.file.read(src);
-        var hash = getHash(source, 'utf8');
+        var hash = getHash(source, 'utf8').substr(0, options.hashLength);
         var dirname = path.dirname(src);
         var rootDir = path.relative(options.srcBasePath, dirname);
         var ext = path.extname(src);
