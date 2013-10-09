@@ -1,4 +1,12 @@
 
+0.4.1 / 2013-10-09 
+==================
+
+  * Parameterize the hash character length.
+  * Don't corrupt binary files on hashing
+  * Fixed missing semicolon in readme example
+  * Clarified documentation a tiny bit
+
 0.4.0 / 2013-09-11 
 ==================
 
