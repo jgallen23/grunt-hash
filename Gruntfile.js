@@ -50,6 +50,19 @@ module.exports = function(grunt) {
           mapping: 'out/no_dest.json'
         },
         src: 'examples/test1.js'
+      },
+      custom_hash: {
+        options: {
+          mapping: 'out/custom_hash.json',
+          hashFunction: function(source, encoding){
+            return require('crypto')
+                .createHash('sha1')
+                .update(source, encoding)
+                .digest('hex');
+          },
+          hashSeparator: '-'
+        },
+        src: 'examples/test1.js'
       }
     },
     watch: {
@@ -61,7 +74,8 @@ module.exports = function(grunt) {
     },
     clean: [
       'out/', 
-      'examples/test1.*.js'
+      'examples/test1.*.js',
+      'examples/test1-*.js'
     ],
     simplemocha: {
       options: {

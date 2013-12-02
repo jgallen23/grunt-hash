@@ -26,7 +26,9 @@ module.exports = function(grunt) {
       srcBasePath: "",
       destBasePath: "",
       flatten: false,
-      hashLength: 8
+      hashLength: 8,
+      hashFunction: getHash,
+      hashSeparator: '.'
     });
     var map = {};
     var mappingExt = path.extname(options.mapping);
@@ -39,7 +41,7 @@ module.exports = function(grunt) {
     this.files.forEach(function(file) {
       file.src.forEach(function(src) {
         var source = grunt.file.read(src);
-        var hash = getHash(source, 'utf8').substr(0, options.hashLength);
+        var hash = options.hashFunction(source, 'utf8').substr(0, options.hashLength);
         var dirname = path.dirname(src);
         var rootDir = path.relative(options.srcBasePath, dirname);
         var ext = path.extname(src);
@@ -48,7 +50,7 @@ module.exports = function(grunt) {
         // Default destination to the same directory
         var dest = file.dest || path.dirname(src);
 
-        var newFile = basename + (hash ? '.' + hash : '') + ext;
+        var newFile = basename + (hash ? options.hashSeparator + hash : '') + ext;
         var outputPath = path.join(dest, newFile);
 
         // Determine if the key should be flatten or not. Also normalize the output path

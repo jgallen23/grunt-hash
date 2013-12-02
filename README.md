@@ -31,7 +31,11 @@ grunt.initConfig({
 			mapping: 'examples/assets.json', //mapping file so your server can serve the right files
 			srcBasePath: 'examples/', // the base Path you want to remove from the `key` string in the mapping file
 			destBasePath: 'out/', // the base Path you want to remove from the `value` string in the mapping file
-			flatten: false // Set to true if you don't want to keep folder structure in the `key` value in the mapping file
+			flatten: false, // Set to true if you don't want to keep folder structure in the `key` value in the mapping file
+			hashLength: 8, // hash length, the max value depends on your hash function
+			hashFunction: function(source, encoding){ // default is md5
+				return require('crypto').createHash('sha1').update(source, encoding).digest('hex');
+			}
 		},
         js: {
             src: 'examples/*.js',  //all your js that needs a hash appended to it
