@@ -1,4 +1,10 @@
 
+0.5.0 / 2013-12-03 
+==================
+
+  * add option for custom hash function, custom hash separator and update readme (abimaelmartell)
+  * only append hash extension if there is a hash (guardian)
+
 0.4.1 / 2013-10-09 
 ==================
 
