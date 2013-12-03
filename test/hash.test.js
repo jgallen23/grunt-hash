@@ -73,4 +73,17 @@ suite('grunt-hash', function() {
     });
     
   });
+
+  suite('custom hash', function() {
+
+    test('custom_hash.json created', function() {
+      assert.ok(fs.existsSync('out/custom_hash.json'));
+      assert.equal(fs.readFileSync('out/custom_hash.json', 'utf8'), fs.readFileSync('test/fixtures/custom_hash.json', 'utf8'));
+    });
+
+    test('files created', function() {
+      assert.ok(fs.existsSync('examples/test1-5ff355d4.js'));
+    });
+
+  });
 });
