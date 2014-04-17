@@ -86,4 +86,23 @@ suite('grunt-hash', function() {
     });
 
   });
+
+  suite('pathPrefix', function() {
+
+    test('path_prefix.json created', function() {
+      assert.ok(fs.existsSync('out/path_prefix.json'));
+      assert.equal(fs.readFileSync('out/path_prefix.json', 'utf8'), fs.readFileSync('test/fixtures/path_prefix.json', 'utf8'));
+    });
+
+    test('prefix applied correctly', function() {
+      var hashes = JSON.parse(fs.readFileSync('out/path_prefix.json', 'utf8')),
+        src;
+
+      for (src in hashes) {
+        assert.equal(src.substr(0, 3), 'js/');
+        assert.equal(hashes[src].substr(0, 8), 'js-dist/');
+      }
+    });
+
+  });
 });

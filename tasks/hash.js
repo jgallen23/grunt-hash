@@ -25,6 +25,8 @@ module.exports = function(grunt) {
     var options = this.options({
       srcBasePath: "",
       destBasePath: "",
+      srcPathPrefix: "",
+      destPathPrefix: "",
       flatten: false,
       hashLength: 8,
       hashFunction: getHash,
@@ -60,6 +62,9 @@ module.exports = function(grunt) {
           key = path.basename(src);
           outKey = path.basename(outKey);
         }
+
+        key = path.join(options.srcPathPrefix, key);
+        outKey = path.join(options.destPathPrefix, outKey);
 
         grunt.file.copy(src, outputPath);
         grunt.log.writeln('Generated: ' + outputPath);
