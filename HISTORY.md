@@ -1,3 +1,7 @@
+0.5.1 / 2014-05-26 
+==================
+
+  * added functionality to append hash as a comment to file contents (meinaart)
 
 0.5.0 / 2013-12-03 
 ==================

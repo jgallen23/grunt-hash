@@ -95,7 +95,7 @@ module.exports = function(grunt) {
           switch(ext.toLowerCase()) {
             case '.css':
             case '.js':
-              comment = '/*! ' + commentText + ' */';
+              comment = '/*!' + commentText + '*/';
               break;
             case '.html':
               comment = '<!--' + commentText + '-->';
