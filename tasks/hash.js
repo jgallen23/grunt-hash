@@ -64,6 +64,7 @@ module.exports = function(grunt) {
           outKey = path.basename(outKey);
         }
 
+        var action = 'Generated';
         if(options.comment) {         
           var comment = '';
           var commentTemplate = '<%= hash.value %>';
@@ -105,6 +106,7 @@ module.exports = function(grunt) {
 
           if(comment) {
             if(src === outputPath) {
+              action = 'Processed';
               fs.appendFileSync(src, comment);
             } else {
               grunt.file.write(outputPath, source + comment);
@@ -116,7 +118,7 @@ module.exports = function(grunt) {
           grunt.file.copy(src, outputPath);
         }
 
-        grunt.log.writeln('Generated: ' + outputPath);
+        grunt.log.writeln(action + ': ' + outputPath);
         map[unixify(key)] = unixify(outKey);
       });
     });
