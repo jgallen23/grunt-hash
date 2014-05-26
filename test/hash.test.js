@@ -99,11 +99,11 @@ suite('grunt-hash', function() {
     });
 
     test('comment with template via function addded to file', function() {
-      assert.ok(fs.existsSync('out/dist/comment_template2/test1.js'));
-      assert.equal(fs.readFileSync('out/dist/comment_template2/test1.js', 'utf8'), fs.readFileSync('test/fixtures/comment/comment_template2/test1.js', 'utf8'));
+      assert.ok(fs.existsSync('out/dist/comment_template_custom/test1.js'));
+      assert.equal(fs.readFileSync('out/dist/comment_template_custom/test1.js', 'utf8'), fs.readFileSync('test/fixtures/comment/comment_template_custom/test1.js', 'utf8'));
 
-      assert.ok(fs.existsSync('out/dist/comment_template2/test2.js'));
-      assert.equal(fs.readFileSync('out/dist/comment_template2/test2.js', 'utf8'), fs.readFileSync('test/fixtures/comment/comment_template2/test2.js', 'utf8'));
+      assert.ok(fs.existsSync('out/dist/comment_template_custom/test2.js'));
+      assert.equal(fs.readFileSync('out/dist/comment_template_custom/test2.js', 'utf8'), fs.readFileSync('test/fixtures/comment/comment_template_custom/test2.js', 'utf8'));
     });
 
   });

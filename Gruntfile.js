@@ -80,7 +80,7 @@ module.exports = function(grunt) {
         dest: 'out/dist/comment_template/',
         src: 'examples/test1.js'
       },
-      comment_template2: {
+      comment_template_custom: {
         options: {
           comment: {
             template: function(data) {
@@ -92,7 +92,7 @@ module.exports = function(grunt) {
             }
           }
         },
-        dest: 'out/dist/comment_template2/',
+        dest: 'out/dist/comment_template_custom/',
         src: 'examples/*.js'
       }
     },
