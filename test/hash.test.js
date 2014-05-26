@@ -12,8 +12,8 @@ suite('grunt-hash', function() {
     });
 
     test('files created', function() {
-      assert.ok(fs.existsSync('out/dist/php/test1.b93fd451.js'));
-      assert.ok(fs.existsSync('out/dist/php/test2.2870d71a.js'));
+      assert.ok(fs.existsSync('out/dist/php/test1.c6896d8a.js'));
+      assert.ok(fs.existsSync('out/dist/php/test2.4be88350.js'));
     });
 
   });
@@ -26,8 +26,8 @@ suite('grunt-hash', function() {
     });
 
     test('files created', function() {
-      assert.ok(fs.existsSync('out/dist/json/test1.b93fd451.js'));
-      assert.ok(fs.existsSync('out/dist/json/test2.2870d71a.js'));
+      assert.ok(fs.existsSync('out/dist/json/test1.c6896d8a.js'));
+      assert.ok(fs.existsSync('out/dist/json/test2.4be88350.js'));
     });
 
   });
@@ -40,8 +40,8 @@ suite('grunt-hash', function() {
     });
 
     test('files created', function() {
-      assert.ok(fs.existsSync('out/dist/path/test1.b93fd451.js'));
-      assert.ok(fs.existsSync('out/dist/path/test2.2870d71a.js'));
+      assert.ok(fs.existsSync('out/dist/path/test1.c6896d8a.js'));
+      assert.ok(fs.existsSync('out/dist/path/test2.4be88350.js'));
       assert.ok(fs.existsSync('out/dist/path/test3.d8cfe155.js'));
     });
   });
@@ -54,8 +54,8 @@ suite('grunt-hash', function() {
     });
 
     test('files created', function() {
-      assert.ok(fs.existsSync('out/dist/flatten/test1.b93fd451.js'));
-      assert.ok(fs.existsSync('out/dist/flatten/test2.2870d71a.js'));
+      assert.ok(fs.existsSync('out/dist/flatten/test1.c6896d8a.js'));
+      assert.ok(fs.existsSync('out/dist/flatten/test2.4be88350.js'));
       assert.ok(fs.existsSync('out/dist/flatten/test3.d8cfe155.js'));
     });
     
@@ -69,7 +69,7 @@ suite('grunt-hash', function() {
     });
 
     test('files created', function() {
-      assert.ok(fs.existsSync('examples/test1.b93fd451.js'));
+      assert.ok(fs.existsSync('examples/test1.c6896d8a.js'));
     });
     
   });
@@ -82,7 +82,28 @@ suite('grunt-hash', function() {
     });
 
     test('files created', function() {
-      assert.ok(fs.existsSync('examples/test1-5ff355d4.js'));
+      assert.ok(fs.existsSync('examples/test1-4750a705.js'));
+    });
+
+  });
+
+  suite('comment hash', function() {
+
+    test('comment addded to file', function() {
+      assert.ok(fs.existsSync('out/dist/comment/test1.js'));
+      assert.equal(fs.readFileSync('out/dist/comment/test1.js', 'utf8'), fs.readFileSync('test/fixtures/comment/comment/test1.js', 'utf8'));
+    });
+    test('comment with template addded to file', function() {
+      assert.ok(fs.existsSync('out/dist/comment_template/test1.js'));
+      assert.equal(fs.readFileSync('out/dist/comment_template/test1.js', 'utf8'), fs.readFileSync('test/fixtures/comment/comment_template/test1.js', 'utf8'));
+    });
+
+    test('comment with template via function addded to file', function() {
+      assert.ok(fs.existsSync('out/dist/comment_template2/test1.js'));
+      assert.equal(fs.readFileSync('out/dist/comment_template2/test1.js', 'utf8'), fs.readFileSync('test/fixtures/comment/comment_template2/test1.js', 'utf8'));
+
+      assert.ok(fs.existsSync('out/dist/comment_template2/test2.js'));
+      assert.equal(fs.readFileSync('out/dist/comment_template2/test2.js', 'utf8'), fs.readFileSync('test/fixtures/comment/comment_template2/test2.js', 'utf8'));
     });
 
   });

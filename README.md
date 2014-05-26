@@ -35,7 +35,8 @@ grunt.initConfig({
 			hashLength: 8, // hash length, the max value depends on your hash function
 			hashFunction: function(source, encoding){ // default is md5
 				return require('crypto').createHash('sha1').update(source, encoding).digest('hex');
-			}
+			},
+      comment: true // Add hash as comment to file instead of to filename, supported: js, css, php and html
 		},
         js: {
             src: 'examples/*.js',  //all your js that needs a hash appended to it

@@ -63,6 +63,37 @@ module.exports = function(grunt) {
           hashSeparator: '-'
         },
         src: 'examples/test1.js'
+      },
+      comment: {
+        options: {
+          comment: true
+        },
+        dest: 'out/dist/comment/',
+        src: 'examples/test1.js'
+      },
+      comment_template: {
+        options: {
+          comment: {
+            template: '<%= grunt.template.today("yyyy-mm-dd") %> - <%= hash.value %>'
+          }
+        },
+        dest: 'out/dist/comment_template/',
+        src: 'examples/test1.js'
+      },
+      comment_template2: {
+        options: {
+          comment: {
+            template: function(data) {
+              if(data.src === 'examples/test1.js') {
+                return 'test1 - <%= grunt.template.today("yyyy-mm-dd") %> - <%= hash.value %>';  
+              } else {
+                return '<%= grunt.template.today("yyyy-mm-dd") %> - <%= hash.value %>';  
+              }
+            }
+          }
+        },
+        dest: 'out/dist/comment_template2/',
+        src: 'examples/*.js'
       }
     },
     watch: {
