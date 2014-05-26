@@ -11,7 +11,9 @@ function unixify(path) {
 }
 
 module.exports = function(grunt) {
+  var chalk = require('chalk');
   var path = require('path');
+  var fs = require('fs');
   var getHash = require('../lib/hash');
 
   // Please see the grunt documentation for more information regarding task and
@@ -21,7 +23,7 @@ module.exports = function(grunt) {
   // TASKS
   // ==========================================================================
 
-  grunt.registerMultiTask('hash', 'Append a unique hash to tne end of a file for cache busting.', function() {
+  grunt.registerMultiTask('hash', 'Append a unique hash to the end of a file for cache busting.', function() {
     var options = this.options({
       srcBasePath: "",
       destBasePath: "",
@@ -30,6 +32,8 @@ module.exports = function(grunt) {
       hashFunction: getHash,
       hashSeparator: '.'
     });
+
+    var rawOptions;
     var map = {};
     var mappingExt = path.extname(options.mapping);
 
@@ -50,7 +54,7 @@ module.exports = function(grunt) {
         // Default destination to the same directory
         var dest = file.dest || path.dirname(src);
 
-        var newFile = basename + (hash ? options.hashSeparator + hash : '') + ext;
+        var newFile = basename + (hash && !options.comment ? options.hashSeparator + hash : '') + ext;
         var outputPath = path.join(dest, newFile);
 
         // Determine if the key should be flatten or not. Also normalize the output path
@@ -61,9 +65,61 @@ module.exports = function(grunt) {
           outKey = path.basename(outKey);
         }
 
-        grunt.file.copy(src, outputPath);
-        grunt.log.writeln('Generated: ' + outputPath);
+        var action = 'Generated';
+        if(options.comment) {         
+          var comment = '';
+          var commentTemplate = '<%= hash.value %>';
+          var templateData = {
+            hash: {
+              value: hash
+            },
+            src: src,
+            dest: outputPath,
+            destDir: dest
+          };
+          if(options.comment.template) {
+            switch(typeof options.comment.template) {
+              case 'string':
+                if(!rawOptions) {
+                  rawOptions = grunt.config.getRaw(grunt.task.current.name + '.' + grunt.task.current.target + '.options');
+                }
 
+                commentTemplate = rawOptions.comment.template;
+                break;
+              case 'function':
+                commentTemplate = options.comment.template(templateData);
+                break;
+            }
+          }
+          var commentText = grunt.template.process(commentTemplate, {data: templateData});
+          switch(ext.toLowerCase()) {
+            case '.css':
+            case '.js':
+              comment = '/*!' + commentText + '*/';
+              break;
+            case '.html':
+              comment = '<!--' + commentText + '-->';
+              break;
+            case '.php':
+              comment = '<?php /*' + commentText + '*/ ?>';
+              break;
+          }
+
+          if(comment) {
+            if(src === outputPath) {
+              action = 'Processed';
+              fs.appendFileSync(src, comment);
+            } else {
+              grunt.file.write(outputPath, source + comment);
+            }
+          } else {
+            grunt.file.copy(src, outputPath);
+          }
+        } else {
+          grunt.file.copy(src, outputPath);
+        }
+
+        grunt.log.writeln(chalk.green('✔ ') + chalk.bold(action + ': ') + outputPath);
         map[unixify(key)] = unixify(outKey);
       });
     });
@@ -78,7 +134,7 @@ module.exports = function(grunt) {
       }
 
       grunt.file.write(options.mapping, output);
-      grunt.log.writeln('Generated mapping: ' + options.mapping);
+      grunt.log.writeln(chalk.green('✔ ') + chalk.bold('Generated mapping: ') + options.mapping);
     }
 
   });
