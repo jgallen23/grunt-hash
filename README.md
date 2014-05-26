@@ -1,8 +1,10 @@
 # grunt-hash
 
-Append a unique hash to the end of a filename for cache busting. For example:
+Calculates a unique hash of a file. This hash can be appended to the filename. For example:
 
 examples/test1.js => examples/dist/test1.b93fd451.js
+
+It can also add the hash as a comment to javascript, CSS, PHP and HTML files.
 
 ##Grunt 0.4
 
