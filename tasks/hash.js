@@ -32,8 +32,7 @@ module.exports = function(grunt) {
       hashSeparator: '.'
     });
 
-    var rawOptions = grunt.config.getRaw(grunt.task.current.name + '.' + grunt.task.current.target + '.options');
-
+    var rawOptions;
     var map = {};
     var mappingExt = path.extname(options.mapping);
 
@@ -79,6 +78,10 @@ module.exports = function(grunt) {
           if(options.comment.template) {
             switch(typeof options.comment.template) {
               case 'string':
+                if(!rawOptions) {
+                  rawOptions = grunt.config.getRaw(grunt.task.current.name + '.' + grunt.task.current.target + '.options');
+                }
+
                 commentTemplate = rawOptions.comment.template;
                 break;
               case 'function':
