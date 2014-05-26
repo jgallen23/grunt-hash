@@ -1,6 +1,6 @@
 {
   "name": "grunt-hash",
-  "description": "Append a unique hash to the end of a filename for cache busting.",
+  "description": "Calculates a unique hash for a file. This hash can be added to filename or to file contents as comment. Can be used for file comparison or cache busting.",
   "version": "0.5.1",
   "homepage": "https://github.com/jgallen23/grunt-hash",
   "author": {
