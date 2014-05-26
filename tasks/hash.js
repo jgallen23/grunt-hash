@@ -11,6 +11,7 @@ function unixify(path) {
 }
 
 module.exports = function(grunt) {
+  var chalk = require('chalk');
   var path = require('path');
   var fs = require('fs');
   var getHash = require('../lib/hash');
@@ -118,7 +119,7 @@ module.exports = function(grunt) {
           grunt.file.copy(src, outputPath);
         }
 
-        grunt.log.writeln(action + ': ' + outputPath);
+        grunt.log.writeln(chalk.green('✔ ') + chalk.bold(action + ': ') + outputPath);
         map[unixify(key)] = unixify(outKey);
       });
     });
@@ -133,7 +134,7 @@ module.exports = function(grunt) {
       }
 
       grunt.file.write(options.mapping, output);
-      grunt.log.writeln('Generated mapping: ' + options.mapping);
+      grunt.log.writeln(chalk.green('✔ ') + chalk.bold('Generated mapping: ') + options.mapping);
     }
 
   });
