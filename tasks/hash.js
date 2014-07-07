@@ -51,7 +51,7 @@ module.exports = function(grunt) {
         var dest = file.dest || path.dirname(src);
 
         var newFile = basename + (hash ? options.hashSeparator + hash : '') + ext;
-        var outputPath = path.join(dest, newFile);
+        var outputPath = path.join(path.dirname(dest), newFile);
 
         // Determine if the key should be flatten or not. Also normalize the output path
         var key = path.join(rootDir, path.basename(src));
