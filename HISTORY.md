@@ -1,4 +1,11 @@
 
+0.6.0-beta.1 / 2015-02-27
+==================
+
+  * refactor to use grunt's native expand
+  * Allow expanded destinations
+
+
 0.5.0 / 2013-12-03 
 ==================
 
