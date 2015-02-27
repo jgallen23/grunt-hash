@@ -33,33 +33,24 @@ module.exports = function(grunt) {
     var map = {};
     var mappingExt = path.extname(options.mapping);
 
-    // If mapping file is a .json, read it and just override current modifications
-    if (mappingExt === '.json' && grunt.file.exists(options.mapping)) {
-      map = grunt.file.readJSON(options.mapping);
-    }
-
     this.files.forEach(function(file) {
       file.src.forEach(function(src) {
+
+        if (grunt.file.isDir(src)) {
+          return;
+        }
+
         var source = grunt.file.read(src);
         var hash = options.hashFunction(source, 'utf8').substr(0, options.hashLength);
-        var dirname = path.dirname(src);
-        var rootDir = path.relative(options.srcBasePath, dirname);
+        var destPath = path.dirname(file.dest);
         var ext = path.extname(src);
         var basename = path.basename(src, ext);
 
-        // Default destination to the same directory
-        var dest = file.dest || path.dirname(src);
-
         var newFile = basename + (hash ? options.hashSeparator + hash : '') + ext;
-        var outputPath = path.join(path.dirname(dest), newFile);
+        var outputPath = path.join(destPath, newFile);
 
-        // Determine if the key should be flatten or not. Also normalize the output path
-        var key = path.join(rootDir, path.basename(src));
-        var outKey = path.relative(options.destBasePath, outputPath);
-        if (options.flatten) {
-          key = path.basename(src);
-          outKey = path.basename(outKey);
-        }
+        var key = path.relative(file.orig.dest, file.dest);
+        var outKey = path.relative(file.orig.dest, outputPath);
 
         grunt.file.copy(src, outputPath);
         grunt.log.writeln('Generated: ' + outputPath);
