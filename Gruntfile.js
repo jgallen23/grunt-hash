@@ -63,6 +63,18 @@ module.exports = function(grunt) {
           hashSeparator: '-'
         },
         src: 'examples/test1.js'
+      },
+      path_prefix: {
+        options: {
+          mapping: 'out/path_prefix.json',
+          srcBasePath: 'examples/',
+          destBasePath: 'out/dist/path_prefix/',
+
+          srcPathPrefix: 'js/',
+          destPathPrefix: 'js-dist/'
+        },
+        src: 'examples/**/*.js',
+        dest: 'out/dist/path_prefix/'
       }
     },
     watch: {
