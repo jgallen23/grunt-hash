@@ -40,7 +40,7 @@ module.exports = function(grunt) {
           return;
         }
 
-        var source = grunt.file.read(src);
+        var source = grunt.file.read(src, {encoding: null});
         var hash = options.hashFunction(source, 'utf8').substr(0, options.hashLength);
         var destPath = path.dirname(file.dest);
         var ext = path.extname(src);
