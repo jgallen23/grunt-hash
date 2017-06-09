@@ -33,6 +33,7 @@ grunt.initConfig({
 			destBasePath: 'out/', // the base Path you want to remove from the `value` string in the mapping file
 			flatten: false, // Set to true if you don't want to keep folder structure in the `key` value in the mapping file
 			hashLength: 8, // hash length, the max value depends on your hash function
+			removeSource: false, // Remove source if true
 			hashFunction: function(source, encoding){ // default is md5
 				return require('crypto').createHash('sha1').update(source, encoding).digest('hex');
 			}
