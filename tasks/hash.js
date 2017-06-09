@@ -28,7 +28,8 @@ module.exports = function(grunt) {
       flatten: false,
       hashLength: 8,
       hashFunction: getHash,
-      hashSeparator: '.'
+      hashSeparator: '.',
+      removeSource: false
     });
     var map = {};
     var mappingExt = path.extname(options.mapping);
@@ -56,6 +57,10 @@ module.exports = function(grunt) {
         grunt.log.writeln('Generated: ' + outputPath);
 
         map[unixify(key)] = unixify(outKey);
+
+        if (options.removeSource) {
+          grunt.file.delete(src);
+        }
       });
     });
 
@@ -73,7 +78,4 @@ module.exports = function(grunt) {
     }
 
   });
-
-
-
 };
